@@ -55,7 +55,17 @@ BEGIN
 END;
 
 BEGIN
-    FOR loop_index in 1..10 LOOP
+    FOR loop_index IN 1..10 LOOP
         INSERT INTO person VALUES('Person ' || loop_index);
     END LOOP;
+END;
+
+DECLARE
+    v_counter NUMBER(2) := 1;
+BEGIN
+    WHILE v_counter <= 10 LOOP
+        INSERT INTO person VALUES('New person ' || v_counter);
+        
+        v_counter := v_counter + 1;
+    END LOOP;    
 END;
