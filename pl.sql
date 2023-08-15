@@ -69,3 +69,12 @@ BEGIN
         v_counter := v_counter + 1;
     END LOOP;    
 END;
+
+SET SERVEROUTPUT ON
+BEGIN
+    FOR parent_index IN 1..4 LOOP
+        FOR child_index IN 1..8 LOOP
+            DBMS_OUTPUT.PUT_LINE(parent_index || ' | ' || child_index);    
+        END LOOP;
+    END LOOP;
+END;
