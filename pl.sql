@@ -145,3 +145,18 @@ BEGIN
     
     ROLLBACK;
 END;
+
+DECLARE
+    row_emp emp%ROWTYPE;
+    
+    CURSOR cursor_emp IS SELECT deptno, SUM(sal) FROM emp GROUP BY deptno;
+BEGIN
+    OPEN cursor_emp;
+    
+    FETCH cursor_emp INTO row_emp.deptno, row_emp.sal;
+    
+    DBMS_OUTPUT.PUT_LINE('Department: ' || row_emp.deptno);
+    DBMS_OUTPUT.PUT_LINE('Salary: ' || row_emp.sal);
+    
+    CLOSE cursor_emp;
+END;
