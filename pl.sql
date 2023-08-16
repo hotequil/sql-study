@@ -119,3 +119,29 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE('Commission: ' || row_emp.comm);
     DBMS_OUTPUT.PUT_LINE('Department: ' || row_emp.deptno);
 END;
+
+BEGIN
+    DELETE FROM emp WHERE deptno = 10;
+    
+    DBMS_OUTPUT.PUT_LINE('Deleted rows quantity: ' || SQL%ROWCOUNT);
+    
+    IF SQL%ISOPEN = true THEN
+        DBMS_OUTPUT.PUT_LINE('Is open: yes');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Is open: no');
+    END IF;
+    
+    IF SQL%FOUND = true THEN
+        DBMS_OUTPUT.PUT_LINE('Found: yes');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Found: no');
+    END IF;
+
+    IF SQL%NOTFOUND = true THEN
+        DBMS_OUTPUT.PUT_LINE('Not found: yes');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Not found: no');
+    END IF;
+    
+    ROLLBACK;
+END;
