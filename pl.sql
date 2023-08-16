@@ -103,3 +103,19 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE('Commission: ' || v_comm);
     DBMS_OUTPUT.PUT_LINE('Department: ' || v_deptno);
 END;
+
+SET SERVEROUTPUT ON
+DECLARE
+    row_emp emp%ROWTYPE;    
+BEGIN
+    SELECT * INTO row_emp FROM emp WHERE empno = 7839;
+    
+    DBMS_OUTPUT.PUT_LINE('Code: ' || row_emp.empno);
+    DBMS_OUTPUT.PUT_LINE('Name: ' || row_emp.ename);
+    DBMS_OUTPUT.PUT_LINE('Job: ' || row_emp.job);
+    DBMS_OUTPUT.PUT_LINE('Manager: ' || row_emp.mgr);
+    DBMS_OUTPUT.PUT_LINE('Date: ' || row_emp.hiredate);
+    DBMS_OUTPUT.PUT_LINE('Sallary: ' || row_emp.sal);
+    DBMS_OUTPUT.PUT_LINE('Commission: ' || row_emp.comm);
+    DBMS_OUTPUT.PUT_LINE('Department: ' || row_emp.deptno);
+END;
