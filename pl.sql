@@ -153,10 +153,14 @@ DECLARE
 BEGIN
     OPEN cursor_emp;
     
-    FETCH cursor_emp INTO row_emp.deptno, row_emp.sal;
+    LOOP
+        FETCH cursor_emp INTO row_emp.deptno, row_emp.sal;
+
+        EXIT WHEN cursor_emp%NOTFOUND;
     
-    DBMS_OUTPUT.PUT_LINE('Department: ' || row_emp.deptno);
-    DBMS_OUTPUT.PUT_LINE('Salary: ' || row_emp.sal);
+        DBMS_OUTPUT.PUT_LINE('Department: ' || row_emp.deptno);
+        DBMS_OUTPUT.PUT_LINE('Salary: ' || row_emp.sal);
+    END LOOP;
     
     CLOSE cursor_emp;
 END;
