@@ -78,3 +78,28 @@ BEGIN
         END LOOP;
     END LOOP;
 END;
+
+SET SERVEROUTPUT ON
+DECLARE
+    v_empno emp.empno%TYPE;
+    v_ename emp.ename%TYPE;
+    v_job emp.job%TYPE;
+    v_mgr emp.mgr%TYPE;
+    v_hiredate emp.hiredate%TYPE;
+    v_sal emp.sal%TYPE;
+    v_comm emp.comm%TYPE;
+    v_deptno emp.deptno%TYPE;
+BEGIN
+    SELECT empno, ename, job, mgr, hiredate, sal, comm, deptno 
+    INTO v_empno, v_ename, v_job, v_mgr, v_hiredate, v_sal, v_comm, v_deptno
+    FROM emp WHERE empno = 7839;
+    
+    DBMS_OUTPUT.PUT_LINE('Code: ' || v_empno);
+    DBMS_OUTPUT.PUT_LINE('Name: ' || v_ename);
+    DBMS_OUTPUT.PUT_LINE('Job: ' || v_job);
+    DBMS_OUTPUT.PUT_LINE('Manager: ' || v_mgr);
+    DBMS_OUTPUT.PUT_LINE('Date: ' || v_hiredate);
+    DBMS_OUTPUT.PUT_LINE('Sallary: ' || v_sal);
+    DBMS_OUTPUT.PUT_LINE('Commission: ' || v_comm);
+    DBMS_OUTPUT.PUT_LINE('Department: ' || v_deptno);
+END;
