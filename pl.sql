@@ -184,3 +184,22 @@ BEGIN
         DBMS_OUTPUT.PUT_LINE('Salary: ' || row_emp.sum);
     END LOOP;
 END;
+
+SET SERVEROUTPUT ON
+DECLARE
+    row_emp emp%ROWTYPE;
+    
+    CURSOR cursor_emp IS SELECT empno, sal FROM emp FOR UPDATE;
+BEGIN
+    OPEN cursor_emp;
+    
+    LOOP
+        FETCH cursor_emp INTO row_emp.empno, row_emp.sal;
+        
+        EXIT WHEN cursor_emp%NOTFOUND;
+        
+        UPDATE emp SET sal = sal * 1.5 WHERE CURRENT OF cursor_emp;     
+    END LOOP;
+    
+    CLOSE cursor_emp;
+END;
