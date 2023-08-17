@@ -120,6 +120,7 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE('Department: ' || row_emp.deptno);
 END;
 
+SET SERVEROUTPUT ON
 BEGIN
     DELETE FROM emp WHERE deptno = 10;
     
@@ -146,6 +147,7 @@ BEGIN
     ROLLBACK;
 END;
 
+SET SERVEROUTPUT ON
 DECLARE
     row_emp emp%ROWTYPE;
     
@@ -163,4 +165,14 @@ BEGIN
     END LOOP;
     
     CLOSE cursor_emp;
+END;
+
+SET SERVEROUTPUT ON
+DECLARE
+    CURSOR cursor_emp IS SELECT deptno, SUM(sal) sum FROM emp GROUP BY deptno;
+BEGIN
+    FOR row_emp IN cursor_emp LOOP
+        DBMS_OUTPUT.PUT_LINE('Department: ' || row_emp.deptno);
+        DBMS_OUTPUT.PUT_LINE('Salary: ' || row_emp.sum);
+    END LOOP;
 END;
