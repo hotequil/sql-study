@@ -176,3 +176,11 @@ BEGIN
         DBMS_OUTPUT.PUT_LINE('Salary: ' || row_emp.sum);
     END LOOP;
 END;
+
+SET SERVEROUTPUT ON
+BEGIN
+    FOR row_emp IN (SELECT deptno, SUM(sal) sum FROM emp GROUP BY deptno) LOOP
+        DBMS_OUTPUT.PUT_LINE('Department: '|| row_emp.deptno);
+        DBMS_OUTPUT.PUT_LINE('Salary: ' || row_emp.sum);
+    END LOOP;
+END;
