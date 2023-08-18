@@ -203,3 +203,7 @@ BEGIN
     
     CLOSE cursor_emp;
 END;
+
+SELECT DISTINCT object_type FROM user_objects;
+
+SELECT DISTINCT object_type FROM all_objects;
