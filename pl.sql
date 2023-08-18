@@ -213,3 +213,7 @@ SELECT table_name FROM user_tables;
 DESC user_objects;
 
 SELECT DISTINCT object_type FROM all_objects;
+
+SELECT * FROM user_triggers;
+
+DESC user_procedures;
