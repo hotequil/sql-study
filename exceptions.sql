@@ -86,3 +86,17 @@ EXCEPTION
         COMMIT;
 END;
 /
+
+SET SERVEROUTPUT ON
+DECLARE
+    my_error EXCEPTION;
+    PRAGMA EXCEPTION_INIT(my_error, -2292);
+BEGIN
+    DELETE FROM dept WHERE deptno = 10;
+    COMMIT;
+EXCEPTION
+    WHEN my_error THEN
+        DBMS_OUTPUT.PUT_LINE('Can not delete department');
+        ROLLBACK;
+END;
+/
