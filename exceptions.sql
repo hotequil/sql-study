@@ -123,3 +123,26 @@ BEGIN
     END IF;
 END;
 /
+
+SET SERVEROUTPUT ON
+DECLARE
+    code user_errors.code%TYPE;
+    message user_errors.message%TYPE;
+    value NUMBER := 4;
+BEGIN
+    BEGIN
+        DELETE FROM dept WHERE deptno = 10;
+    EXCEPTION
+        WHEN ZERO_DIVIDE THEN
+            DBMS_OUTPUT.PUT_LINE('Intern block error');
+    END;
+    
+    DBMS_OUTPUT.PUT_LINE(value / (value - value));
+EXCEPTION
+    WHEN OTHERS THEN        
+        code := SQLCODE;
+        message := SUBSTR(SQLERRM, 1, 100);
+
+        INSERT INTO user_errors VALUES (USER, SYSDATE, code, message);
+END;
+/
