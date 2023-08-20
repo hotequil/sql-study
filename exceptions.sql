@@ -37,3 +37,32 @@ EXCEPTION
         DBMS_OUTPUT.PUT_LINE('Unknown error');
 END;
 /
+
+SET SERVEROUTPUT ON
+DECLARE
+    my_error EXCEPTION;
+    row_emp emp%ROWTYPE;
+    CURSOR cursor_emp IS SELECT empno, ename FROM emp WHERE empno = 9999;
+BEGIN
+    OPEN cursor_emp;
+    
+    LOOP
+        FETCH cursor_emp INTO row_emp.empno, row_emp.ename;
+        
+        IF cursor_emp%NOTFOUND THEN
+            RAISE my_error;
+        END IF;
+        
+        DBMS_OUTPUT.PUT_LINE('Code: ' || row_emp.empno);
+        DBMS_OUTPUT.PUT_LINE('Name: ' || row_emp.ename);
+        
+        EXIT WHEN cursor_emp%NOTFOUND;
+    END LOOP;
+    
+    CLOSE cursor_emp;
+EXCEPTION
+    WHEN my_error THEN
+        DBMS_OUTPUT.PUT_LINE('Code not registred');
+        ROLLBACK;
+END;
+/
