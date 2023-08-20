@@ -100,3 +100,26 @@ EXCEPTION
         ROLLBACK;
 END;
 /
+
+SET SERVEROUTPUT ON
+DECLARE
+    value NUMBER := 6;
+BEGIN
+    DBMS_OUTPUT.PUT_LINE(value / (value - value));
+EXCEPTION
+    WHEN ZERO_DIVIDE THEN
+        RAISE_APPLICATION_ERROR(-20901, 'Math error');
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Unknown error');
+END;
+/
+
+BEGIN
+    DELETE FROM dept WHERE deptno = 9999;
+    
+    IF SQL%NOTFOUND THEN
+        RAISE_APPLICATION_ERROR(-20902, 'There is no department with this code');
+        ROLLBACK;
+    END IF;
+END;
+/
