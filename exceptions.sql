@@ -66,3 +66,23 @@ EXCEPTION
         ROLLBACK;
 END;
 /
+
+SET SERVEROUTPUT ON
+DECLARE
+    error_salary EXCEPTION;
+BEGIN
+    FOR row_emp IN (SELECT empno, ename, sal FROM emp WHERE empno = 7369) LOOP
+        IF row_emp.sal < 1000 THEN
+            RAISE error_salary;
+        END IF;
+        
+        DBMS_OUTPUT.PUT_LINE('Code: ' || row_emp.empno);
+        DBMS_OUTPUT.PUT_LINE('Name: ' || row_emp.ename);
+        DBMS_OUTPUT.PUT_LINE('Salary: ' || row_emp.sal);
+    END LOOP;
+EXCEPTION
+    WHEN error_salary THEN
+        UPDATE emp SET sal = 1000 WHERE empno = 7369;
+        COMMIT;
+END;
+/
