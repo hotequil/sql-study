@@ -37,3 +37,19 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE('Salary: ' || v_salary);
 END;
 /
+
+CREATE OR REPLACE PROCEDURE format_phone (p_phone IN OUT VARCHAR2) IS 
+BEGIN
+    p_phone := '(' || SUBSTR(p_phone, 0, 2) || ') ' || SUBSTR(p_phone, 3, 5) || '-' || SUBSTR(p_phone, 8);
+END format_phone;
+/
+
+SET SERVEROUTPUT ON
+DECLARE
+    v_phone VARCHAR2(20) := '47987654321';
+BEGIN
+    format_phone(v_phone);
+
+    DBMS_OUTPUT.PUT_LINE(v_phone);
+END;
+/
