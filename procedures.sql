@@ -53,3 +53,38 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE(v_phone);
 END;
 /
+
+SHOW ERRORS;
+
+CREATE OR REPLACE PROCEDURE create_department (
+    p_id IN dept.deptno%TYPE DEFAULT '50',
+    p_name IN dept.dname%TYPE DEFAULT 'IT',
+    p_location IN dept.loc%TYPE DEFAULT 'SC'
+) IS 
+BEGIN
+    INSERT INTO dept(deptno, dname, loc) VALUES(p_id, p_name, p_location);
+    COMMIT;
+END create_department;
+/
+
+BEGIN 
+    create_department;
+END;
+/
+
+BEGIN
+    create_department('55', 'HR', 'RS');
+END;
+/
+
+BEGIN 
+    create_department(p_location => 'PR', p_id => '60', p_name => 'MKT');
+END;
+/
+
+BEGIN 
+    create_department('65', p_location => 'SC', p_name => 'CLV');
+END;
+/
+
+SELECT * FROM dept WHERE deptno >= '50';
