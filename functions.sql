@@ -18,3 +18,22 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE(get_salary(7782));
 END;
 /
+
+CREATE OR REPLACE FUNCTION departments_total RETURN NUMBER IS
+    v_total NUMBER(8) := 0;
+BEGIN
+    SELECT COUNT(*) INTO v_total FROM emp;
+    
+    RETURN v_total;
+END;
+/
+
+SET SERVEROUTPUT ON
+DECLARE
+    v_count NUMBER(8);
+BEGIN    
+    v_count := departments_total;
+    
+    DBMS_OUTPUT.PUT_LINE('Departments total: ' || v_count);
+END;
+/
