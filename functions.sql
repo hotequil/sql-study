@@ -37,3 +37,20 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE('Departments total: ' || v_count);
 END;
 /
+
+CREATE OR REPLACE FUNCTION calculate_annual_salary(p_salary NUMBER, p_commission NUMBER) RETURN NUMBER IS BEGIN
+    RETURN (p_salary + nvl(p_commission, 0)) * 12;
+END calculate_annual_salary;
+/
+
+SELECT sal, comm, calculate_annual_salary(sal, comm) FROM emp;
+
+SET SERVEROUTPUT ON
+DECLARE
+    v_annual_salary NUMBER(6);
+BEGIN    
+    v_annual_salary := calculate_annual_salary(1000, 50);
+    
+    DBMS_OUTPUT.PUT_LINE('Annual salary: ' || v_annual_salary);
+END;
+/
