@@ -54,3 +54,31 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE('Annual salary: ' || v_annual_salary);
 END;
 /
+
+CREATE OR REPLACE FUNCTION ordinary(p_number NUMBER) RETURN VARCHAR2 IS BEGIN
+    CASE p_number
+        WHEN 1 THEN RETURN 'first';
+        WHEN 2 THEN RETURN 'second';
+        WHEN 3 THEN RETURN 'third';
+        WHEN 4 THEN RETURN 'fourth';
+        WHEN 5 THEN RETURN 'fifth';
+        WHEN 6 THEN RETURN 'sixth';
+        WHEN 7 THEN RETURN 'seventh';
+        WHEN 8 THEN RETURN 'eighth';
+        WHEN 9 THEN RETURN 'nineth';
+        ELSE RETURN 'unforeseen';
+    END CASE;    
+END;
+/
+
+SELECT ordinary(2) FROM dual;
+SELECT ordinary(8) FROM dual;
+SELECT ordinary(10) FROM dual;
+
+SET SERVEROUTPUT ON
+BEGIN 
+    FOR my_index IN 0..10 LOOP
+        DBMS_OUTPUT.PUT_LINE(ordinary(my_index));
+    END LOOP;
+END;
+/
