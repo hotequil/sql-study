@@ -12,3 +12,9 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE(college.c_rating);
 END;
 /
+
+CREATE OR REPLACE PACKAGE pkg_hr AS 
+    FUNCTION fn_get_salary (p_id IN emp.empno%TYPE) RETURN NUMBER;
+    PROCEDURE fn_readjustment (p_id IN emp.empno%TYPE, p_percentage IN NUMBER DEFAULT 20);
+END pkg_hr;
+/
