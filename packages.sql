@@ -10,6 +10,7 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE(college.c_name);
     DBMS_OUTPUT.PUT_LINE(college.c_phone);
     DBMS_OUTPUT.PUT_LINE(college.c_rating);
+    DBMS_OUTPUT.PUT_LINE(college.c_rating ** 2);
 END;
 /
 
