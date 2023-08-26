@@ -45,3 +45,5 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE(pkg_hr.fn_get_salary(7900));
 END;
 /
+
+SELECT pkg_hr.fn_get_salary(7900) FROM dual;
