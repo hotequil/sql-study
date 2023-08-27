@@ -25,32 +25,32 @@ END;
 /
 
 SET SERVEROUTPUT ON
-CREATE OR REPLACE TRIGGER tr_salarial_changes BEFORE INSERT OR DELETE OR UPDATE OF sal ON emp FOR EACH ROW WHEN (NEW.sal > 1000 OR OLD.sal > 1000)
+CREATE OR REPLACE TRIGGER tr_salarial_changes BEFORE INSERT OR DELETE OR UPDATE OF sal ON emp REFERENCING NEW AS new_emp OLD AS old_emp FOR EACH ROW WHEN (new_emp.sal > 1000 OR old_emp.sal > 1000)
 DECLARE 
     difference NUMBER;
 BEGIN
     IF INSERTING OR UPDATING THEN 
-        DBMS_OUTPUT.PUT_LINE('New salary: ' || :NEW.sal);
+        DBMS_OUTPUT.PUT_LINE('New salary: ' || :new_emp.sal);
     END IF;    
         
     IF UPDATING OR DELETING THEN
-        DBMS_OUTPUT.PUT_LINE('Old salary: ' || :OLD.sal);
+        DBMS_OUTPUT.PUT_LINE('Old salary: ' || :old_emp.sal);
     END IF;
     
     IF UPDATING THEN 
-        difference := :NEW.sal - :OLD.sal;
+        difference := :new_emp.sal - :old_emp.sal;
 
         DBMS_OUTPUT.PUT_LINE('Salary difference: ' || difference);
         
-        register_salary(:OLD.empno, 'UPDATE', :NEW.sal, :OLD.sal);
+        register_salary(:old_emp.empno, 'UPDATE', :new_emp.sal, :old_emp.sal);
     END IF;   
     
     IF INSERTING THEN
-        register_salary(:NEW.empno, 'INSERT', :NEW.sal, :OLD.sal);
+        register_salary(:new_emp.empno, 'INSERT', :new_emp.sal, :old_emp.sal);
     END IF;
     
     IF DELETING THEN
-        register_salary(:OLD.empno, 'DELETE', :NEW.sal, :OLD.sal);
+        register_salary(:old_emp.empno, 'DELETE', :new_emp.sal, :old_emp.sal);
     END IF;
 END;
 /
